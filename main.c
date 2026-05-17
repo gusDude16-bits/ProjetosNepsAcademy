@@ -44,7 +44,7 @@ int main() {
                 break;
             case 4:
                 if (b == 0) {
-                    printf("Erro: Divisão por zero não é permitida.\n");
+                    printf("Error: Division by zero is not allowed.\n");
                 } else {
                     divisao(a, b);
                 }
@@ -112,24 +112,24 @@ char continuar() {
 }
 
 void inserirValores(double *x, double *y) {
-    printf("Digite o primeiro número: ");
+    printf("Enter the first number: ");
     scanf("%lf", x);
-    printf("Digite o segundo número: ");
+    printf("Enter the second number: ");
     scanf("%lf", y);
 }
 
 void adicao(double a, double b) {
-    printf("Resultado: %g + %g = %g\n", a, b, a + b);
+    printf("Result: %g + %g = %g\n", a, b, a + b);
 }
 
 void subtracao(double a, double b) {
-    printf("Resultado: %g - %g = %g\n", a, b, a - b);
+    printf("Result: %g - %g = %g\n", a, b, a - b);
 }
 
 void multiplicacao(double a, double b) {
-    printf("Resultado: %g * %g = %g\n", a, b, a * b);
+    printf("Result: %g * %g = %g\n", a, b, a * b);
 }
 
 void divisao(double a, double b) {
-    printf("Resultado: %g / %g = %g\n", a, b, a / b);
+    printf("Result: %g / %g = %g\n", a, b, a / b);
 }
