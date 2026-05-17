@@ -115,7 +115,7 @@ void adicao(double a, double b) {
 }
 
 void subtracao(double a, double b) {
-    printf("Resultado: %g - %g = %g\n", a, b, a - b);
+    printf("Resultado: %g - %g = %g\n", b, a, b - a);
 }
 
 void multiplicacao(double a, double b) {
