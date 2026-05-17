@@ -51,7 +51,7 @@ int main() {
                 break;
         }
 
-        if (continuar() == 'S') {
+        if (continuar() == 'Y') {
             limparTela();
         } else {
             printf("Obrigado por usar a calculadora! Até a próxima.\n");
@@ -80,12 +80,15 @@ int menu() {
     printf("3. Multiplicação\n");
     printf("4. Divisão\n");
     printf("5. Sair\n");
-    printf("Opção: ");
-    scanf("%d", &opcaoMenu);
-    while (opcaoMenu < 1 || opcaoMenu > 5) {
-        printf("Opção inválida! Insira uma opção de 1 a 5.\n");
+    
+    while (1) {
         printf("Opção: ");
-        scanf("%d", &opcaoMenu);
+        if (scanf("%d", &opcaoMenu) == 1 && opcaoMenu >= 1 && opcaoMenu <= 5) {
+            break; 
+        } else {
+            while (getchar() != '\n'); 
+            printf("Opção inválida! Insira uma opção de 1 a 5.\n");
+        }
     }
     return opcaoMenu;
 }
@@ -93,13 +96,18 @@ int menu() {
 char continuar() {
     char opcaoDesejada;
     do {
-        printf("Deseja realizar outra operação? (s/n): ");
+        printf("Deseja realizar outra operação? (y/n): ");
         scanf(" %c", &opcaoDesejada);
+        
+        while (getchar() != '\n'); 
+        
         opcaoDesejada = toupper(opcaoDesejada);
-        if(opcaoDesejada != 'S' && opcaoDesejada != 'N') {
-            printf("Resposta inválida. Por favor, digite 's' para sim ou 'n' para não.\n");
+        
+        if(opcaoDesejada != 'Y' && opcaoDesejada != 'N') {
+            printf("Resposta inválida. Por favor, digite 'y' para sim ou 'n' para não.\n");
         }
-    } while (opcaoDesejada != 'S' && opcaoDesejada != 'N');
+    } while (opcaoDesejada != 'Y' && opcaoDesejada != 'N');
+    
     return opcaoDesejada;
 }
 
