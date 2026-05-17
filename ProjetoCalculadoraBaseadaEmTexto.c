@@ -11,91 +11,52 @@ char continuar();
 
 // Funções para as operações aritméticas: 
 
-void adicao(int a, int b);
-void subtracao(int a, int b);
-void divisao(int a, int b);
-void multiplicacao(int a, int b);
-void inserirValores(int *x, int *y);
+void adicao(double a, double b);
+void subtracao(double a, double b);
+void divisao(double a, double b);
+void multiplicacao(double a, double b);
+void inserirValores(double *x, double *y);
 
 // Função principal:
 
 int main() {
-    setlocale (LC_ALL, "Portuguese_Brazil");
+    setlocale(LC_ALL, "Portuguese_Brazil");
     while(1) {
         int opcao = menu();
+        
+        if (opcao == 5) {
+            printf("Obrigado por usar a calculadora! Até a próxima.\n");
+            break;
+        }
+
+        double a, b;
+        inserirValores(&a, &b);
+
         switch (opcao) {
-            case 1: {
-                int a, b;
-                inserirValores(&a, &b);
+            case 1:
                 adicao(a, b);
-                getchar();
-                if (continuar() == 'S') {
-                    limparTela();
-                    break;
-                }
-                else {
-                    printf("Obrigado por usar a calculadora! Até a próxima.\n");
-                    opcao = 5;
-                    break;
-                }
-            }
-            case 2: {
-                int a, b;
-                inserirValores(&a, &b);
+                break;
+            case 2:
                 subtracao(a, b);
-                getchar();
-                if (continuar() == 'S') {
-                    limparTela();
-                    break;
-                }
-                else {
-                    printf("Obrigado por usar a calculadora! Até a próxima.\n");
-                    opcao = 5;
-                    break;
-                }
-            }
-            case 3: {
-                int a, b;
-                inserirValores(&a, &b);
+                break;
+            case 3:
                 multiplicacao(a, b);
-                getchar();
-                if (continuar() == 'S') {
-                    limparTela();
-                    break;
+                break;
+            case 4:
+                if (b == 0) {
+                    printf("Erro: Divisão por zero não é permitida.\n");
+                } else {
+                    divisao(a, b);
                 }
-                else {
-                    printf("Obrigado por usar a calculadora! Até a próxima.\n");
-                    opcao = 5;
-                    break;
-                }
-            }
-            case 4: {
-                int a, b;
-                inserirValores(&a, &b);
-                do {
-                    if (b == 0)
-                        printf("Erro: Divisão por zero não é permitida.\n\n");
-                        printf("Insira um valor adequado: ");
-                        scanf("%d", &b);
-                } while (b == 0);
-                divisao(a, b);
-                getchar();
-                if (continuar() == 'S') {
-                    limparTela();
-                    break;
-                }
-                else {
-                    printf("Obrigado por usar a calculadora! Até a próxima.\n");
-                    opcao = 5;
-                    break;
-                }
-            }
-            case 5:
-                printf("Obrigado por usar a calculadora! Até a próxima.\n");
                 break;
         }
-        if(opcao==5)
+
+        if (continuar() == 'S') {
+            limparTela();
+        } else {
+            printf("Obrigado por usar a calculadora! Até a próxima.\n");
             break;
+        }
     }
     return 0;
 }
@@ -103,7 +64,7 @@ int main() {
 // Ações das funções declaradas em cima:
 
 void limparTela() {
-    #ifdef _Win32
+    #ifdef _WIN32
         system("cls");
     #else
         system("clear");
@@ -118,11 +79,12 @@ int menu() {
     printf("2. Subtração\n");
     printf("3. Multiplicação\n");
     printf("4. Divisão\n");
-    printf("5. Sair.\n");
+    printf("5. Sair\n");
     printf("Opção: ");
     scanf("%d", &opcaoMenu);
-    while (opcaoMenu < 0 && opcaoMenu > 5) {
-        printf("Opcão inválida! Insira uma opção de 1 a 5.\n");
+    while (opcaoMenu < 1 || opcaoMenu > 5) {
+        printf("Opção inválida! Insira uma opção de 1 a 5.\n");
+        printf("Opção: ");
         scanf("%d", &opcaoMenu);
     }
     return opcaoMenu;
@@ -130,34 +92,36 @@ int menu() {
 
 char continuar() {
     char opcaoDesejada;
-    while (toupper(opcaoDesejada)!='S' && toupper(opcaoDesejada)!='N') {
+    do {
         printf("Deseja realizar outra operação? (s/n): ");
-        scanf("%c", &opcaoDesejada);
-        if(toupper(opcaoDesejada)!='S' && toupper(opcaoDesejada)!='N')
+        scanf(" %c", &opcaoDesejada);
+        opcaoDesejada = toupper(opcaoDesejada);
+        if(opcaoDesejada != 'S' && opcaoDesejada != 'N') {
             printf("Resposta inválida. Por favor, digite 's' para sim ou 'n' para não.\n");
-    }
-    return toupper(opcaoDesejada);
+        }
+    } while (opcaoDesejada != 'S' && opcaoDesejada != 'N');
+    return opcaoDesejada;
 }
 
-void inserirValores(int *x, int *y) {
+void inserirValores(double *x, double *y) {
     printf("Digite o primeiro número: ");
-    scanf("%d", x);
+    scanf("%lf", x);
     printf("Digite o segundo número: ");
-    scanf("%d", y);
+    scanf("%lf", y);
 }
 
-void adicao(int a, int b) {
-    printf("\n%d + %d = %d\n\n", a, b, a+b);
+void adicao(double a, double b) {
+    printf("Resultado: %g + %g = %g\n", a, b, a + b);
 }
 
-void subtracao(int a, int b) {
-    printf("\n%d - %d = %d\n\n", a, b, a-b);
+void subtracao(double a, double b) {
+    printf("Resultado: %g - %g = %g\n", a, b, a - b);
 }
 
-void multiplicacao(int a, int b) {
-    printf("\n%d * %d = %d\n\n", a, b, a*b);
+void multiplicacao(double a, double b) {
+    printf("Resultado: %g * %g = %g\n", a, b, a * b);
 }
 
-void divisao(int a, int b) {
-    printf("\n%d / %d = %.1lf\n\n", a, b, (double)a/b);
+void divisao(double a, double b) {
+    printf("Resultado: %g / %g = %g\n", a, b, a / b);
 }
